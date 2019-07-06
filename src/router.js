@@ -5,6 +5,7 @@ import tab from './views/Tab'
 import detail from './views/Detail'
 import search from './views/Search'
 import searchList from './views/SearchList'
+import toplist from './views/TopList'
 
 Vue.use(Router)
 
@@ -33,6 +34,11 @@ export default new Router({
     {
       path: '/s',
       component: searchList
+    },
+    {
+      path: '/toplist/:topListId/sub/:subId',
+      component: toplist,
+      props: true
     },
     {
       path: '*',
