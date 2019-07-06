@@ -1,5 +1,5 @@
 <template>
     <div>
-        aaa
+        今日推荐
     </div>
 </template>

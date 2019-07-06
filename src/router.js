@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import a from './views/a.vue'
+import recommend from './views/Recommend'
+import tab from './views/Tab'
+import detail from './views/Detail'
+import search from './views/Search'
+import searchList from './views/SearchList'
 
 Vue.use(Router)
 
@@ -10,7 +14,29 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: a
+      component: recommend
+    },
+    {
+      path: '/tab/:tabId',
+      component: tab,
+      props: true
+    },
+    {
+      path: '/d/:detailId',
+      component: detail,
+      props: true
+    },
+    {
+      path: '/search',
+      component: search
+    },
+    {
+      path: '/s',
+      component: searchList
+    },
+    {
+      path: '*',
+      redirect: '/'
     }
   ]
 })

@@ -1,8 +1,18 @@
 <template>
   <div id="app">
-      project
+      <navbar></navbar>
+      <router-view />
   </div>
 </template>
+
+<script>
+import navbar from '@/components/Navbar'
+export default {
+  components: {
+    navbar
+  }
+}
+</script>
 
 <style>
 * {margin: 0; padding: 0;}
@@ -14,10 +24,4 @@ h1, h2, h3 {font-size: 0.16rem; font-weight: normal;}
 .l {float: left;}
 .r {float: right;}
 .clear:after {content: "";display: block;clear: both;}
-
-#app {
-  height: 1rem;
-  width: 1rem;
-  background: red;
-}
 </style>
