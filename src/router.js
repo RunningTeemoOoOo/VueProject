@@ -14,7 +14,7 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/index',
       component: recommend
     },
     {
@@ -42,7 +42,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/'
+      redirect: '/index'
     }
   ]
 })
