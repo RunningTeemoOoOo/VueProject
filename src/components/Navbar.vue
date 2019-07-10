@@ -1,7 +1,7 @@
 <template>
     <nav ref="nav">
         <div class="top">
-            <router-link to="search" tag="div" class="search">
+            <router-link to="/search" tag="div" class="search">
                 <span class="el-icon-search icon"></span>
                 <span class="wenzi">搜索商品，发现更多优选</span>
             </router-link>
@@ -12,8 +12,8 @@
             </router-link>
             <div class="tab l line"></div>
             <div class="roll l clear" ref="roll">
-                <div class="scroll l clear">
-                    <router-link :to="'/tab/' + data.id" tag="div" activeClass="act" class="bar l" v-for="data in navList.slice(1)" :key="data.id">
+                <div class="scroll l clear" ref="navdiv">
+                    <router-link :to="'/tab/' + data.id" tag="div" activeClass="act" class="bar l" v-for="data in navList.slice(1)" :key="data.id" @click.native="moveNav(navScroll)">
                         {{data.name}}
                     </router-link>
                 </div>
@@ -45,7 +45,8 @@ export default {
     return {
       navFirst: [],
       navList: [],
-      isTabShow: false
+      isTabShow: false,
+      navScroll: {}
     }
   },
   methods: {
@@ -53,10 +54,30 @@ export default {
       this.isTabShow = !this.isTabShow
     },
     getHeight () {
-      console.log(document.documentElement.scrollTop)
+      let oldTop = document.scrollingElement.scrollTop
+      window.onscroll = () => {
+        let top = document.scrollingElement.scrollTop
+        if (oldTop >= top) {
+          this.$refs.nav.style.top = '0'
+        } else {
+          this.$refs.nav.style.top = '-0.5rem'
+        }
+        oldTop = top
+      }
+    },
+    moveNav (scroll) {
+      setTimeout(() => {
+        let arr = this.$refs.navdiv.children
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i].classList.length === 4) {
+            scroll.scrollToElement(arr[i - 1], 500)
+          }
+        }
+      }, 1)
     }
   },
   mounted () {
+    console.log('mounted')
     // 获取数据
     axios({
       url: 'http://www.xiongmaoyouxuan.com/api/tabs?sa='
@@ -65,28 +86,22 @@ export default {
     })
 
     // 初始化BetterScroll
-    this.$nextTick(() => {
-      let myscroll = new BetterScroll('.roll', {
-        click: true,
-        scrollY: false,
-        scrollX: true,
-        eventPassthrough: 'vertical',
-        deceleration: 0.01
-      })
-      myscroll.x = 0
+    let myscroll = new BetterScroll('.roll', {
+      click: true,
+      scrollY: false,
+      scrollX: true,
+      eventPassthrough: 'vertical',
+      deceleration: 0.01
     })
+    this.navScroll = myscroll
 
     // 滚动条
-    let oldTop = document.scrollingElement.scrollTop
-    window.onscroll = () => {
-      let top = document.scrollingElement.scrollTop
-      if (oldTop >= top) {
-        this.$refs.nav.style.top = '0'
-      } else {
-        this.$refs.nav.style.top = '-0.5rem'
-      }
-      oldTop = top
-    }
+    this.getHeight()
+    this.moveNav(this.navScroll)
+  },
+  updated () {
+    this.moveNav(this.navScroll)
+    console.log('updated')
   },
   beforeDestroy () {
     window.onscroll = null
@@ -102,7 +117,7 @@ nav {
     background: #fdde4a;
     height: 0.92rem;
     width: 100%;
-    transition: 0.2s ease-in-out;
+    transition: 0.3s ease-in-out;
     .top {
         height: 0.5rem;
         padding: 0.11rem 0.19rem 0.09rem 0.19rem;
@@ -170,6 +185,7 @@ nav {
                 overflow: hidden;
                 height: 0.36rem;
                 width: max-content;
+                transition: 0.5s linear;
             }
         }
         .icon {

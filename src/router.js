@@ -32,7 +32,7 @@ export default new Router({
       component: search
     },
     {
-      path: '/s',
+      path: '/s/:sData',
       component: searchList
     },
     {
