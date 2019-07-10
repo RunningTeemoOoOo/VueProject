@@ -50,26 +50,40 @@ export default {
     }
   },
   methods: {
+    // 控制'全部分类'显示或隐藏
     showTab () {
       this.isTabShow = !this.isTabShow
     },
+    // 检测滚动条滚动方向，使导航栏向上或向下位移
     getHeight () {
+      // 初始状态时，获得当前滚动条高度
       let oldTop = document.scrollingElement.scrollTop
+      // 滚动条事件
       window.onscroll = () => {
         let top = document.scrollingElement.scrollTop
+        // 判断滚动方向，并控制位移
         if (oldTop >= top) {
           this.$refs.nav.style.top = '0'
         } else {
           this.$refs.nav.style.top = '-0.5rem'
         }
+        // 存储新的高度
         oldTop = top
       }
     },
+    // 使导航栏跟随路由滚动，参数为betterScroll对象
     moveNav (scroll) {
       setTimeout(() => {
+        // 获取betterScroll对应的节点的所有子元素，遍历判断是否有activeClass
         let arr = this.$refs.navdiv.children
         for (let i = 0; i < arr.length; i++) {
           if (arr[i].classList.length === 4) {
+            // 判断是否是第一个，是则将索引+1，以便betterscroll跳转
+            if (i === 0) {
+              i = 1
+            }
+            // betterScroll函数，scrollToElement(el, time, offsetX, offsetY, easing)
+            // dom元素, 动画时间, X坐标偏移量, Y坐标偏移量，缓动函数
             scroll.scrollToElement(arr[i - 1], 500)
           }
         }
@@ -91,17 +105,17 @@ export default {
       scrollY: false,
       scrollX: true,
       eventPassthrough: 'vertical',
+      // 滚动动量减速越大越快
       deceleration: 0.01
     })
+    // 将betterScroll对象赋值，方便函数调用
     this.navScroll = myscroll
 
-    // 滚动条
     this.getHeight()
     this.moveNav(this.navScroll)
   },
   updated () {
     this.moveNav(this.navScroll)
-    console.log('updated')
   },
   beforeDestroy () {
     window.onscroll = null

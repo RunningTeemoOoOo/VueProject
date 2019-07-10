@@ -41,6 +41,7 @@ export default {
     }
   },
   beforeMount () {
+    // 隐藏导航栏navbar
     this.$store.commit('showHideTabbar', false)
   },
   mounted () {
@@ -56,6 +57,7 @@ export default {
     })
   },
   beforeDestroy () {
+    // 显示导航栏navbar
     this.$store.commit('showHideTabbar', true)
   },
   components: {
