@@ -59,7 +59,7 @@ export default {
       // 初始状态时，获得当前滚动条高度
       let oldTop = document.scrollingElement.scrollTop
       // 滚动条事件
-      window.onscroll = () => {
+      window.addEventListener('scroll', () => {
         let top = document.scrollingElement.scrollTop
         // 判断滚动方向，并控制位移
         if (oldTop >= top) {
@@ -69,7 +69,7 @@ export default {
         }
         // 存储新的高度
         oldTop = top
-      }
+      })
     },
     // 使导航栏跟随路由滚动，参数为betterScroll对象
     moveNav (scroll) {
@@ -91,7 +91,6 @@ export default {
     }
   },
   mounted () {
-    console.log('mounted')
     // 获取数据
     axios({
       url: 'http://www.xiongmaoyouxuan.com/api/tabs?sa='
@@ -132,6 +131,7 @@ nav {
     height: 0.92rem;
     width: 100%;
     transition: 0.3s ease-in-out;
+    z-index: 99;
     .top {
         height: 0.5rem;
         padding: 0.11rem 0.19rem 0.09rem 0.19rem;

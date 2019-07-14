@@ -36,6 +36,10 @@ header {
     line-height: 0.3rem;
     color: #43240c;
     box-shadow: 1px 2px 5px hsla(0,11%,79%,.5);
+    position:fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
     .back, .search {
         width: 0.4rem;
         font-size: 0.14rem;

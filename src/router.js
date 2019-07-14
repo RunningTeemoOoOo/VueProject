@@ -6,11 +6,14 @@ import detail from './views/Detail'
 import search from './views/Search'
 import searchList from './views/SearchList'
 import toplist from './views/TopList'
-
+import column from './views/Column'
+// import SearchDefault from './views/search/SearchDefault'
+// import SearchPrice from './views/search/SearchPrice'
+// import SearchSalesVolume from './views/search/SearchSalesVolume'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes: [
     {
@@ -18,12 +21,18 @@ export default new Router({
       component: recommend
     },
     {
+      path: '/column/:id',
+      component: column,
+      props: true
+    },
+    {
       path: '/tab/:tabId',
       component: tab,
       props: true
     },
     {
-      path: '/d/:detailId',
+      path: '/c/:id',
+      name: 'kerwindetail',
       component: detail,
       props: true
     },

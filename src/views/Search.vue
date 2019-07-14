@@ -40,11 +40,10 @@ export default {
       this.$router.push(`/s/${data}`)
     }
   },
-  beforeMount () {
+  mounted () {
     // 隐藏导航栏navbar
     this.$store.commit('showHideTabbar', false)
-  },
-  mounted () {
+
     axios({
       url: 'http://www.xiongmaoyouxuan.com/api/search/home'
     }).then(res => {
