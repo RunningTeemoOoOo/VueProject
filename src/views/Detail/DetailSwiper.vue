@@ -13,7 +13,7 @@ import '_swiper@4.5.0@swiper/dist/css/swiper.css'
 export default {
   mounted () {
     // console.log("我是轮播图")
-    new Swiper('.filmswiper', {
+    let s = new Swiper('.filmswiper', {
       loop: true,
       autoplay: {
         delay: 2000
@@ -22,6 +22,7 @@ export default {
         el: '.swiper-pagination'
       }
     })
+    console.log(s)
   }
 }
 </script>

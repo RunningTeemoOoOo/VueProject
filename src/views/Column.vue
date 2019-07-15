@@ -33,7 +33,11 @@ export default {
       })
     },
     handleonscroll () {
-      if (document.documentElement.scrollHeight - document.documentElement.scrollTop < 800) {
+      // let h = document.documentElement.scrollHeight == 0 ? document.body.scrollHeight : document.documentElement.scrollHeight
+      // let t = document.documentElement.scrollTop == 0 ? document.body.scrollTop : document.documentElement.scrollTop
+      let t = document.scrollingElement.scrollTop
+      let h = document.scrollingElement.scrollHeight
+      if (h - t < 1000) {
         if (this.isPushed === false) {
           this.isPushed = true
           this.nowStart += 20
